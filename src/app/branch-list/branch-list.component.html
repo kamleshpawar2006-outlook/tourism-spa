@@ -1,32 +1,40 @@
-<form [formGroup]="searchForm" (submit)="search()">
-    <table class="container" border="1" style="width: 30%;">
-        <tr>
-            <td>Select Criteria</td>
-            <td>
-                <select formControlName="criteria">
-                    <option value="branchId">Branch ID</option>
-                    <option value="branchName">Branch Name</option>
-                     <option value="place">Place</option>
-                    <option value="invalid">invalid</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Criteria Value</td>
-            <td>
-                <input *ngIf="searchForm?.value?.criteria != 'place'" type="text" formControlName="criteriaValue">
-                <select *ngIf="searchForm?.value?.criteria == 'place'"  formControlName="criteriaValue">
-                    <option *ngFor="let place of places" [value]="place">{{place}}</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><button type="submit">Search</button></td>
-        </tr>
-    </table>
-</form>
-
+<div class="container">
+    <div style="width: 30%;" *ngIf="error" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">
+            <span *ngFor="let err of error">{{err}}</span>
+        </h4>
+    </div>
+    <form [formGroup]="searchForm" (submit)="search()">
+        <table border="1" style="width: 30%;">
+            <tr>
+                <td>Select Criteria</td>
+                <td>
+                    <select formControlName="criteria">
+                        <option value="">Select</option>
+                        <option value="branchId">Branch ID</option>
+                        <option value="branchName">Branch Name</option>
+                        <option value="place">Place</option>
+                        <option value="invalid">invalid</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Criteria Value</td>
+                <td>
+                    <input *ngIf="searchForm?.value?.criteria != 'place'" type="text" formControlName="criteriaValue">
+                    <select *ngIf="searchForm?.value?.criteria == 'place'"  formControlName="criteriaValue">
+                        <option value="">Select</option>
+                        <option *ngFor="let place of places" [value]="place">{{place}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">Search</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
 
 <!-- src/app/branch-table/branch-table.component.html -->
 <div class="container a" *ngIf="branches.length > 0">
@@ -68,6 +76,11 @@
                             </tr>
                         </tbody>
                     </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <a href="javascript:void(0)" [routerLink]="['/edit-tariff', branch['branchId']]"><strong>Edit Tariffs</strong></a>
                 </td>
             </tr>
         </ng-container>

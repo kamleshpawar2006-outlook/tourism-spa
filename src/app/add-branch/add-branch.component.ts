@@ -26,11 +26,11 @@ export class AddBranchComponent implements OnInit {
 
   buildForm() {
     this.branchForm = this.formBuilder.group({
-      branchName: ['andamanTours'],
-      place: ['ANDAMAN'],
-      website: ['www.andamanTours.com'],
-      email: ['info@andamanTours.com'],
-      contact: ['9988776655'],
+      branchName: [''],
+      place: [''],
+      website: [''],
+      email: [''],
+      contact: [''],
       tariffs: this.formBuilder.array([])
     });
     this.addPlace();
@@ -43,27 +43,28 @@ export class AddBranchComponent implements OnInit {
   addPlace() {
     let tariffs: UntypedFormArray = this.branchForm.get("tariffs") as UntypedFormArray;
     tariffs.push(this.formBuilder.group({
-      place: ['ANDAMAN'],
-      tariffAmount: ['50000'],
+      place: [''],
+      tariffAmount: [''],
     }));
   }
 
   removeTariff(i: any) {
     this.tariffs.removeAt(i);
   }
-
+  error: any = '';
   addBranch() {
     if(this.branchForm.valid) {
       this._tourismApiService.addBranch(this.branchForm.value).subscribe((response:any) => {
         // this.buildForm();
         this.branchId = response['branchId'];
+        this.error = "";
       }, (error: HttpErrorResponse) => {
-        alert(error.message);
+        this.error = error.error.message;
         this.branchId = null;
       });
     } else {
       this.branchId = null;
-      alert("Invalid form data");
+      this.error = "Invalid form data";
     }
   }
 

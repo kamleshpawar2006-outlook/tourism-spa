@@ -19,15 +19,15 @@ export class BranchListComponent implements OnInit {
   ];
 
   branches = [];
+  error: any;
 
   constructor(private _tourismApiService: TourismApiService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
-      criteria: ['branchId'],
-      criteriaValue: ['4']
+      criteria: [''],
+      criteriaValue: ['']
     });
-    this.search();
   }
 
   search() {
@@ -37,7 +37,9 @@ export class BranchListComponent implements OnInit {
       } else {
         this.branches = [];
       }
+      this.error = "";
     },(error:HttpErrorResponse)=> {
+      this.error = error.error.message;
       this.branches = [];
     });
   }

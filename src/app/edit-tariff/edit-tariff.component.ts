@@ -62,20 +62,22 @@ export class EditTariffComponent implements OnInit {
       tariffAmount: [''],
     }));
   }
-
+  error = '';
   updateTariff() {
     if(this.branchForm.valid) {
       this._tourismApiService.updateTariff(this.branchId, this.tariffs.value).subscribe((response:any) => {
+        this.error = "";
         if(response['response'] == "success") {
           this.updated = true;
         }
       }, (error: HttpErrorResponse) => {
-        alert(error.message);
+        this.error = error.error.message;
         this.updated = false;
+        this.error = error.message;
       });
     } else {
       this.updated = false;
-      alert("Invalid form data");
+      this.error = "Invalid form data";
     }
   }
 
