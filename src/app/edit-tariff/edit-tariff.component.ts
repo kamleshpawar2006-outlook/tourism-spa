@@ -62,7 +62,9 @@ export class EditTariffComponent implements OnInit {
       tariffAmount: [''],
     }));
   }
-  error = '';
+
+  error: any = '';
+
   updateTariff() {
     if(this.branchForm.valid) {
       this._tourismApiService.updateTariff(this.branchId, this.tariffs.value).subscribe((response:any) => {
@@ -70,10 +72,13 @@ export class EditTariffComponent implements OnInit {
         if(response['response'] == "success") {
           this.updated = true;
         }
-      }, (error: HttpErrorResponse) => {
-        this.error = error.error.message;
+      }, (error: any) => {
+        let messageArray = error.error.message;
+        this.error = [];
+        messageArray[0].split(",").forEach((err: any) => {
+          this.error.push(err.split(":")[1]);
+        });
         this.updated = false;
-        this.error = error.message;
       });
     } else {
       this.updated = false;

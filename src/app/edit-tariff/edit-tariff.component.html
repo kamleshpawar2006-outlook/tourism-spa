@@ -4,7 +4,7 @@
         <div style="width: 30%;" *ngIf="updated" class="alert alert-success" role="alert">
             <h4 class="alert-heading"><strong>Branch's tariff details updated!</strong></h4>
         </div>
-        <div style="width: 30%;" *ngIf="!updated && error" class="alert alert-danger" role="alert">
+        <div style="width: 60%;" *ngIf="!updated && error" class="alert alert-danger" role="alert">
             <h4 class="alert-heading">
                 <ul>
                     <li *ngFor="let err of error">{{err}}</li>
@@ -58,6 +58,7 @@
                             <tr *ngFor="let tariff of tariffs.controls; let i = index" [formGroupName]="i">
                                 <td>
                                     <select class="form-control" formControlName="place">
+                                        <option value="">Select</option>
                                         <option *ngFor="let place of places" [value]="place">{{place}}</option>
                                     </select>
                                 </td>
