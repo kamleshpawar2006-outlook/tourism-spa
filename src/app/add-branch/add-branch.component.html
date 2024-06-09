@@ -1,0 +1,77 @@
+<form [formGroup]="branchForm" (submit)="addBranch()">
+    <div style="width: 30%;" *ngIf="branchId" class="alert alert-success" role="alert">
+        <h4 class="alert-heading"><strong>Branch Created!</strong></h4>
+        <p>Branch ID: <a href="javascript:void(0)" [routerLink]="['/edit-tariff', branchId]"><strong>{{branchId}}</strong></a></p>
+      </div>
+    <table border="1">
+        <tr>
+            <td>
+                <strong>Place</strong>
+            </td>
+            <td>
+                <select class="form-control" formControlName="place">
+                    <option *ngFor="let place of places" [value]="place">{{place}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Branch Name</strong></td>
+            <td><input type="text" class="form-control" formControlName="branchName"></td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Website</strong>
+            </td>
+            <td><input type="text" class="form-control" formControlName="website"></td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Contact</strong>
+            </td>
+            <td><input type="text" class="form-control" formControlName="contact"></td>
+        </tr>
+        <tr>
+            <td><strong>E-mail</strong></td>
+            <td><input type="text" class="form-control" formControlName="email"></td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Tariff</strong>
+            </td>
+            <td>
+                <table border="1">
+                    <tr>
+                        <td>
+                            <strong>Place</strong>
+                        </td>
+                        <td><strong>Tariff Amount</strong></td>
+                        <td></td>
+                    </tr>
+                    <ng-container formArrayName="tariffs">
+                        <tr *ngFor="let tariff of tariffs.controls; let i = index" [formGroupName]="i">
+                            <td>
+                                <select class="form-control" formControlName="place">
+                                    <option *ngFor="let place of places" [value]="place">{{place}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" formControlName="tariffAmount">
+                            </td>
+                            <td>
+                                <button (click)="removeTariff(i)" type="button" class="btn btn-danger" aria-label="Close">
+                                    Remove
+                                  </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: right;"><button class="btn btn-primary" type="button" (click)="addPlace()">Add Tariff</button></td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;"><button class="btn btn-primary" type="submit">Save</button></td>
+        </tr>
+    </table>
+</form>

@@ -1,0 +1,10 @@
+th {
+    padding: 5px ;
+}
+
+.container.a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

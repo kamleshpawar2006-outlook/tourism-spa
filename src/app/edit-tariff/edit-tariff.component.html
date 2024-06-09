@@ -1,0 +1,72 @@
+<form *ngIf="loaded" [formGroup]="branchForm" (submit)="updateTariff()">
+    <div style="width: 30%;" *ngIf="updated" class="alert alert-success" role="alert">
+        <h4 class="alert-heading"><strong>Branch's tariff details updated!</strong></h4>
+      </div>
+    <table border="1">
+        <tr>
+            <td>
+                <strong>Place</strong>
+            </td>
+            <td>
+                <select class="form-control" formControlName="place">
+                    <option *ngFor="let place of places" [value]="place">{{place}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Branch Name</strong></td>
+            <td><input type="text" class="form-control" formControlName="branchName"></td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Website</strong>
+            </td>
+            <td><input type="text" class="form-control" formControlName="website"></td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Contact</strong>
+            </td>
+            <td><input type="text" class="form-control" formControlName="contact"></td>
+        </tr>
+        <tr>
+            <td><strong>E-mail</strong></td>
+            <td><input type="text" class="form-control" formControlName="email"></td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Tariff</strong>
+            </td>
+            <td>
+                <table border="1">
+                    <tr>
+                        <td>
+                            <strong>Place</strong>
+                        </td>
+                        <td><strong>Tariff Amount</strong></td>
+                    </tr>
+                    <ng-container formArrayName="tariffs">
+                        <tr *ngFor="let tariff of tariffs.controls; let i = index" [formGroupName]="i">
+                            <td>
+                                <select class="form-control" formControlName="place">
+                                    <option *ngFor="let place of places" [value]="place">{{place}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" formControlName="tariffAmount">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: right;"><button class="btn btn-primary" type="button" (click)="addPlace()">Add Tariff</button></td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;"><button class="btn btn-primary" type="submit">Update Tariff</button></td>
+        </tr>
+    </table>
+</form>
+
+<h3 *ngIf="!loaded">Loading...</h3>
