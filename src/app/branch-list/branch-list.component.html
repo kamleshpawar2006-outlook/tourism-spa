@@ -1,0 +1,77 @@
+<form [formGroup]="searchForm" (submit)="search()">
+    <table class="container" border="1" style="width: 30%;">
+        <tr>
+            <td>Select Criteria</td>
+            <td>
+                <select formControlName="criteria">
+                    <option value="branchId">Branch ID</option>
+                    <option value="branchName">Branch Name</option>
+                     <option value="place">Place</option>
+                    <option value="invalid">invalid</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Criteria Value</td>
+            <td>
+                <input *ngIf="searchForm?.value?.criteria != 'place'" type="text" formControlName="criteriaValue">
+                <select *ngIf="searchForm?.value?.criteria == 'place'"  formControlName="criteriaValue">
+                    <option *ngFor="let place of places" [value]="place">{{place}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button type="submit">Search</button></td>
+        </tr>
+    </table>
+</form>
+
+
+<!-- src/app/branch-table/branch-table.component.html -->
+<div class="container a" *ngIf="branches.length > 0">
+    <h2>Branch Information</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Branch ID</th>
+          <th>Branch Name</th>
+          <th>Place</th>
+          <th>Website</th>
+          <th>Contact</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let branch of branches">
+            <tr>
+                <td>{{ branch['branchId'] }}</td>
+                <td>{{ branch['branchName'] }}</td>
+                <td>{{ branch['place'] }}</td>
+                <td><a href="javascript: void(0)">{{ branch['website'] }}</a></td>
+                <td>{{ branch['contact'] }}</td>
+                <td>{{ branch['email'] }}</td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <table class="table table-bordered child-table" border="1">
+                        <thead>
+                            <tr>
+                                <th>Place</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tariff of branch['tariffs']">
+                                <td>{{ tariff['place'] }}</td>
+                                <td>{{ tariff['tariffAmount'] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  
