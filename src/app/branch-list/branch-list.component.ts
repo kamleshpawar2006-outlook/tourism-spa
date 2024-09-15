@@ -39,6 +39,7 @@ export class BranchListComponent implements OnInit {
       }
       this.error = "";
     },(error:HttpErrorResponse)=> {
+      console.log(error);
       this.error = error.error.message;
       this.branches = [];
     });

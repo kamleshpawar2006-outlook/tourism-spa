@@ -21,6 +21,7 @@ export class EditTariffComponent implements OnInit {
     'MALAYSIA'
   ];
   loaded = false;
+  getError: any;
   constructor(private formBuilder: FormBuilder, private _tourismApiService: TourismApiService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -28,6 +29,9 @@ export class EditTariffComponent implements OnInit {
     this._tourismApiService.searchBranch("branchId", this.branchId).subscribe((response:any) => {
       this.loaded = true;
       this.buildForm(response[0]);
+    }, (error: HttpErrorResponse) => {
+      this.getError = error.error.message[0];
+      this.loaded = true;
     });
   }
 
