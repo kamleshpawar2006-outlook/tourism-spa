@@ -73,7 +73,7 @@ export class EditTariffComponent implements OnInit {
     if(this.branchForm.valid) {
       this._tourismApiService.updateTariff(this.branchId, this.tariffs.value).subscribe((response:any) => {
         this.error = "";
-        if(response['response'] == "success") {
+        if(response) {
           this.updated = true;
         }
       }, (error: any) => {

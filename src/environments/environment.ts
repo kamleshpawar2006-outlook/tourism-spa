@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  branchService: "http://localhost:8095/tourism/branch",
-  searchService: "http://localhost:8085/tourism/api/v1/admin",
+  branchService: "http://localhost:9102/tourism/api/v1/branch",
+  searchService: "http://localhost:9102/tourism/api/v1/admin",
 };
 
 /*
